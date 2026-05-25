@@ -4,7 +4,7 @@
 
 当前主要包含：
 
-- `annotation-workflow-skill`：总控型半自动化工作流 skill，用来学习飞书培训资料、整理标注规则、草拟权限问卷、生成任务专用 skill，并提供后续规则更新接口。
+- `annotation-workflow-skill`：总控型半自动化工作流 skill，用来学习在线培训资料、整理标注规则、草拟权限问卷、生成任务专用 skill，并提供后续规则更新接口。
 - `sft3-skill`、`gsb-skill`、`coding-aesthetic-pairwise-skill`：已经沉淀好的具体标注 skill，用于实际判断和填写标注任务。
 
 
@@ -12,7 +12,7 @@
 
 推荐流程是“Codex 自动整理，关键提交人工确认”：
 
-1. 用户提供飞书培训视频、标注手册、任务发布入口或权限问卷。
+1. 用户提供培训视频、标注手册、任务发布入口或权限问卷。
 2. Codex 使用 `annotation-workflow-skill` 读取培训资料，整理 `training-summary.md` 和 `manual-summary.md`。
 3. Codex 根据视频总结和手册生成 `quiz-draft.md`，包含推荐答案、依据和置信度。
 4. 用户确认问卷答案后，Codex 再控制 Chrome 提交权限问卷。
@@ -65,7 +65,7 @@ annotation-skills/
 
 ```powershell
 python annotation-skills/annotation-workflow-skill/scripts/create_task_skill.py `
-  --task-name aidp-widget `
+  --task-name example-annotation-task `
   --output-dir annotation-skills `
   --training-summary path/to/training-summary.md `
   --manual-summary path/to/manual-summary.md `
@@ -76,7 +76,7 @@ python annotation-skills/annotation-workflow-skill/scripts/create_task_skill.py 
 脚本会生成：
 
 ```text
-annotation-skills/aidp-widget-skill/
+annotation-skills/example-annotation-task-skill/
   SKILL.md
   agents/openai.yaml
   references/training-summary.md
@@ -101,7 +101,7 @@ annotation-skills/aidp-widget-skill/
 生成后建议运行校验：
 
 ```powershell
-python E:/Codex/.codex/skills/.system/skill-creator/scripts/quick_validate.py annotation-skills/aidp-widget-skill
+python E:/Codex/.codex/skills/.system/skill-creator/scripts/quick_validate.py annotation-skills/example-annotation-task-skill
 ```
 
 ## 实时更新规则
@@ -116,7 +116,7 @@ python annotation-skills/annotation-workflow-skill/scripts/update_task_skill.py 
   --target rule `
   --title "规则更新" `
   --text "新的规则内容" `
-  --source "用户纠正/飞书手册/问卷反馈"
+  --source "用户纠正/标注手册/问卷反馈"
 ```
 
 `--target` 可选值：
