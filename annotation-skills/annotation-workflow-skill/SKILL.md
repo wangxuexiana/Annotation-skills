@@ -38,6 +38,7 @@ When a new task is released:
    - easy-to-misjudge cases
    - wording style for reasons
    - quiz facts likely to be tested
+6. If the user has historical annotation answers from this or other queues, collect them as `user-style.md` or pass them to the generator with `--style-corpus`. Use those answers for wording style, not for task rules unless the user explicitly says the rule transfers.
 
 Use [workflow-checklist.md](references/workflow-checklist.md) as the operating checklist.
 
@@ -65,7 +66,8 @@ python annotation-skills/annotation-workflow-skill/scripts/create_task_skill.py 
   --output-dir annotation-skills `
   --training-summary path/to/training-summary.md `
   --manual-summary path/to/manual-summary.md `
-  --quiz-draft path/to/quiz-draft.md
+  --quiz-draft path/to/quiz-draft.md `
+  --style-corpus path/to/user-previous-answers.txt
 ```
 
 The generated skill must include:
@@ -76,6 +78,7 @@ The generated skill must include:
 - `references/quiz-draft.md`: permission quiz answers and evidence, if present.
 - `references/learned-patterns.md`: user corrections and recurring judgement rules.
 - `references/reason-examples.md`: short natural Chinese reason examples.
+- `references/user-style.md`: the user's historical answer style and wording habits, when available.
 
 After generation, validate with the skill-creator quick validator.
 
