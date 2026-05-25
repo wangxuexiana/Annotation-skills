@@ -17,6 +17,7 @@ Read the relevant reference before working:
 
 - `references/training-summary.md` for video and onboarding conclusions.
 - `references/manual-summary.md` for official manual rules.
+- `references/rule-updates.md` for newest manual updates, quiz feedback, and user corrections. Read this first because it may override older summaries.
 - `references/quiz-draft.md` when answering or reviewing permission quizzes.
 - `references/learned-patterns.md` for user corrections and repeated cases.
 - `references/reason-examples.md` for short natural Chinese wording.
@@ -34,6 +35,7 @@ Read the relevant reference before working:
 
 ## Stable Rules
 
+- Check `references/rule-updates.md` before each annotation batch. Newer updates override earlier summaries when there is a clear conflict.
 - Blank, white-screen, black-screen, broken, or screenshots that cannot reflect the prompt should be marked as waste/abandoned when the platform supports it.
 - This queue judges screenshot aesthetics only. Do not test or penalize website functions, interactions, or workflow completeness.
 - Do not choose a side because it has more screenshots. Compare the visible screenshot quality and whole-set consistency.
@@ -60,4 +62,4 @@ When answering a permission quiz:
 
 ## Skill Evolution
 
-When the user corrects a judgement or wording, update `references/learned-patterns.md`, `references/reason-examples.md`, or `references/user-style.md` with the reusable rule. Keep entries short and general so future labels do not sound copied.
+When the user corrects a judgement or wording, update `references/rule-updates.md`, `references/learned-patterns.md`, `references/reason-examples.md`, or `references/user-style.md` with the reusable rule. Use `rule-updates.md` for active rule changes that should affect the next task immediately. Keep entries short and general so future labels do not sound copied.

@@ -56,6 +56,7 @@ Read the relevant reference before working:
 - `references/manual-summary.md` for official manual rules.
 - `references/quiz-draft.md` when answering or reviewing permission quizzes.
 - `references/learned-patterns.md` for user corrections and repeated cases.
+- `references/rule-updates.md` for latest rule changes. Read this before older summaries because it may override previous understanding.
 - `references/reason-examples.md` for short natural Chinese wording.
 - `references/user-style.md` when the user has provided previous annotation answers; imitate those sentence patterns first.
 
@@ -87,6 +88,10 @@ When writing reasons, follow this priority:
 3. Use `reason-examples.md` as a backup phrase pool, not as fixed templates.
 
 Do not copy old answers mechanically. Adapt the user's style to the current task and current visible evidence.
+
+## Rule Updates
+
+Before each annotation batch, check `references/rule-updates.md` first. If it contains a newer rule that conflicts with `training-summary.md`, `manual-summary.md`, or `learned-patterns.md`, follow the newer rule and mention the conflict to the user when it affects the current task.
 
 ## Quiz Flow
 
@@ -122,6 +127,19 @@ Format:
   Pass/choose condition: <what is enough>
   Fail/waste condition: <what is not enough>
   Reason style: <preferred wording>
+"""
+
+
+def default_rule_updates() -> str:
+    return """# Rule Updates
+
+Newer entries override older summaries when they clearly conflict. Add updates with `update_task_skill.py` or append manually.
+
+## Active Overrides
+
+- None yet.
+
+## Update Log
 """
 
 
@@ -202,6 +220,7 @@ def main() -> None:
     write(skill_dir / "references" / "manual-summary.md", manual)
     write(skill_dir / "references" / "quiz-draft.md", quiz)
     write(skill_dir / "references" / "user-style.md", default_user_style(style))
+    write(skill_dir / "references" / "rule-updates.md", default_rule_updates())
 
     learned = skill_dir / "references" / "learned-patterns.md"
     reasons = skill_dir / "references" / "reason-examples.md"

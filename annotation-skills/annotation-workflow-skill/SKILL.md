@@ -77,10 +77,37 @@ The generated skill must include:
 - `references/manual-summary.md`: manual-specific rules.
 - `references/quiz-draft.md`: permission quiz answers and evidence, if present.
 - `references/learned-patterns.md`: user corrections and recurring judgement rules.
+- `references/rule-updates.md`: newest manual updates, quiz feedback, and user corrections that may override earlier rules.
 - `references/reason-examples.md`: short natural Chinese reason examples.
 - `references/user-style.md`: the user's historical answer style and wording habits, when available.
 
 After generation, validate with the skill-creator quick validator.
+
+## Live Rule Updates
+
+When the user says a rule changed, a quiz answer was corrected, or the task manual updated, update the task skill immediately before continuing annotation.
+
+Use:
+
+```powershell
+python annotation-skills/annotation-workflow-skill/scripts/update_task_skill.py `
+  --skill-dir annotation-skills/<task-name>-skill `
+  --target rule `
+  --title "规则更新标题" `
+  --text "新的规则内容" `
+  --source "用户纠正/飞书手册/问卷反馈"
+```
+
+Targets:
+
+- `rule`: append to `references/rule-updates.md`; use for new rules that may override earlier summaries.
+- `pattern`: append to `references/learned-patterns.md`; use for recurring judgement patterns.
+- `style`: append to `references/user-style.md`; use for historical answers or user wording preferences.
+- `reason`: append to `references/reason-examples.md`; use for new reason examples.
+- `quiz`: append to `references/quiz-draft.md`; use for permission quiz feedback.
+- `manual`: append to `references/manual-summary.md`; use for newly discovered manual text.
+
+After updating, revalidate the skill. Before annotating, load `rule-updates.md` first because it contains the newest overrides.
 
 ## Annotation Execution
 
@@ -112,6 +139,7 @@ Carry these rules into generated task skills unless the manual explicitly confli
 After any user correction:
 
 1. Update the relevant task skill's `references/learned-patterns.md` when the correction is reusable.
-2. Update `references/reason-examples.md` when the user corrects wording style.
-3. Keep one-off details out of the main skill unless they affect a recurring judgement rule.
-4. Revalidate the edited skill.
+2. Update `references/rule-updates.md` when the correction changes an active judgement rule or overrides the manual.
+3. Update `references/user-style.md` or `references/reason-examples.md` when the user corrects wording style.
+4. Keep one-off details out of the main skill unless they affect a recurring judgement rule.
+5. Revalidate the edited skill.
