@@ -1,0 +1,3 @@
+display_name: Annotation Workflow
+short_description: Learn trainings and build annotation skills.
+default_prompt: Use this skill to turn Feishu training videos and annotation manuals into a task-specific annotation skill and permission quiz draft, then guide Chrome-based annotation with confirmation gates.
