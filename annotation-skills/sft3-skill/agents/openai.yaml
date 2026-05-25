@@ -1,0 +1,4 @@
+interface:
+  display_name: "SFT3期 skill"
+  short_description: "按 SFT 三期手册判断题目是否通过"
+  default_prompt: "Use $sft3-skill to judge whether this SFT 三期 task should pass and write a concise Chinese reason."

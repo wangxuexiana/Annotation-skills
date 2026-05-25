@@ -1,0 +1,4 @@
+interface:
+  display_name: "GSB skill"
+  short_description: "草图生成网页 A/B/Same 评价规则"
+  default_prompt: "Use $gsb-skill to compare two sketch-to-web candidates and write a concise Chinese GSB reason."
