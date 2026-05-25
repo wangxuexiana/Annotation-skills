@@ -7,11 +7,6 @@
 - `annotation-workflow-skill`：总控型半自动化工作流 skill，用来学习飞书培训资料、整理标注规则、草拟权限问卷、生成任务专用 skill，并提供后续规则更新接口。
 - `sft3-skill`、`gsb-skill`、`coding-aesthetic-pairwise-skill`：已经沉淀好的具体标注 skill，用于实际判断和填写标注任务。
 
-## 同步原则
-
-以后新生成的任务 skill 默认只在本地生成或安装，不自动推送到 GitHub 仓库。
-
-只有当用户明确说“推送到仓库”“同步到 GitHub”“提交这个 skill”时，才提交并推送新 skill 或规则更新。
 
 ## 半自动化工作流
 
