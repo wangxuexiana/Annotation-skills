@@ -144,3 +144,7 @@ Use this file as the evolving memory for repeated SFT 三期 task types. Add onl
 - Prompt-named behavior outranks general visual quality. Fail a good-looking result when a required named function is missing, for example `日期选择未更新历法`, `路径交叉后未显现符号`, `闭环后LED未点亮`, or `缺少悬浮基座和磁悬浮主体`.
 - When listing several similar elements in a reason, use Chinese commas or pauses, not `/`. Prefer `温度、密度、颜色调节有反馈` and `广告、列车等核心元素缺失`.
 - For specialized labels like EVA, use more口语 wording when possible: `宇航员出舱装备切换有效`, `宇航员穿戴状态能切换`, or `月球基地里装备切换有反馈`.
+
+- Blank or no-content render: if the page or render area loads nothing visible at all, choose 废弃, reason like 页面没有加载出内容，无法判断核心功能. If it can show a menu or level list but entering a level has no concrete game screen, choose 不通过, reason like 能选择关卡，但进入后看不到具体游戏界面，核心玩法不可用.
+- Waste boundary: use 废弃 only for true blank/no meaningful elements/default placeholder such as a static Vite icon. If a partial app shell, sidebar, navigation, or controls load but the requested core scene or interaction is missing, choose 不通过, reason like 页面只加载出部分界面，核心内容不可用.
+- Game core-loop leniency: for game tasks, pass when the game can start and the main playable action works, even if some secondary features, upgrades, optional modes, scoring polish, or decorative effects are incomplete. Fail only when the missing part blocks the playable loop or is the central named interaction in the prompt.

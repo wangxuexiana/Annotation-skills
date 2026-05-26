@@ -9,6 +9,8 @@ description: SFT 三期 AIDP/Juejin task review rubric for judging generated web
 
 Judge only whether the prompt's core function is implemented and basically usable. Do not fail a task for weak polish, imperfect visuals, minor wording differences, or missing edge effects when the main interaction works.
 
+For game tasks, pass once the basic playable core loop is implemented and usable. Do not require every listed secondary feature, upgrade, decorative effect, optional mode, or polish detail to be fully implemented before marking `通过`. Only fail missing secondary features when they block the core loop or when the prompt makes that feature the central named interaction to test.
+
 When operating in a live AIDP page, inspect and report unless the user explicitly asks to submit. Do not click final submit, receive, authorize, or other state-changing controls without confirmation.
 
 Be moderately strict about interactions explicitly named in the prompt. If the prompt asks for a slider, toggle, button, drag action, camera control, drawing tool, generator, counter, score, or other adjustable/interactive control, it must produce a visible or textual change when operated. Do not mark `通过` only because the static scene looks close while a named core control has no effect.
@@ -19,7 +21,9 @@ Prompt-named functions have higher weight than the visual shell. A good-looking 
 
 Do not process returned/rework (`返修`) tasks. If the current item is marked `返修`, skip it and move to a normal annotation task; do not judge, fill, temporarily save, or submit the returned item unless the user explicitly changes this rule.
 
-If a preview is blank, broken, or cannot render the main content after a reasonable load/retry, choose `废弃` instead of marking ordinary `不通过`. Use a short waste reason such as `页面白屏，无法正常渲染` or `预览无法加载，无法判断核心功能`.
+If a preview is blank, broken, or cannot render the main content after a reasonable load/retry, choose `废弃` instead of marking ordinary `不通过`. Use `废弃` only when no meaningful elements load, the page is truly blank, or the page only shows a static default placeholder such as a Vite icon. Use a short waste reason such as `页面白屏，无法正常渲染` or `预览无法加载，无法判断核心功能`.
+If the page or render area loads nothing meaningful at all, with no visible game/UI/canvas/content to inspect, choose `废弃` directly. If any partial app shell, navigation, control panel, or other meaningful UI loads but the core scene is missing or unusable, mark ordinary `不通过`, not `废弃`.
+If the page can show level/stage selection, but after choosing a level it does not enter a concrete game screen, map, character, controls, or playable scene, mark ordinary `不通过`, not `废弃`. The page is renderable, but the core gameplay after level entry is missing.
 
 ## Review Flow
 
@@ -29,13 +33,14 @@ If a preview is blank, broken, or cannot render the main content after a reasona
 4. Open the scene URL in a new browser window or new tab and test the page there.
 5. After testing, close the separate test window/tab, then return to the original task window to fill the label, reason, waste flag, and submit if the user has authorized submission.
 6. First check whether it is basically playable or basically usable according to the production manual.
-7. If the preview is blank or cannot render the main content, mark `废弃` and write the direct render/load reason.
-8. Test each prompt-named core control at least once. For sliders and toggles, verify the label, value, scene, animation, or object state changes after operation.
-9. If a prompt-named core control has no visible/textual effect, mark `不通过` even if the static scene is mostly correct.
-10. If the core loop is already basically playable and named core controls respond, mark `通过` without exhaustively testing every secondary feature.
-11. If the basic core function is missing, blocked, or cannot be operated, mark `不通过` and write the direct core reason.
-12. Ignore boundary decorations and secondary effects unless the prompt makes them the core feature.
-13. If comparing with the user's old label, give counts for same/different and mention only meaningful disagreements.
+7. If the preview is blank, only shows a static default placeholder, or cannot render any meaningful app content, mark `废弃` and write the direct render/load reason.
+8. If a start screen or level-selection screen works, choose one level and confirm that a concrete playable game scene appears. If level entry leads to an empty or non-game screen, mark `不通过`.
+9. Test each prompt-named core control at least once. For sliders and toggles, verify the label, value, scene, animation, or object state changes after operation.
+10. If a prompt-named core control has no visible/textual effect, mark `不通过` even if the static scene is mostly correct.
+11. If the core loop is already basically playable and named core controls respond, mark `通过` without exhaustively testing every secondary feature.
+12. If the basic core function is missing, blocked, or cannot be operated, mark `不通过` and write the direct core reason.
+13. Ignore boundary decorations and secondary effects unless the prompt makes them the core feature.
+14. If comparing with the user's old label, give counts for same/different and mention only meaningful disagreements.
 
 When a task type looks familiar, read [learned-patterns.md](references/learned-patterns.md) and reuse the closest stable pattern. Still inspect the current preview enough to confirm the core condition; do not judge only from the pattern name.
 
@@ -45,6 +50,7 @@ Mark `通过` when the main requested experience is present and usable:
 
 - The game can start and respond to input.
 - The primary action works, such as moving, jumping, attacking, cutting, shooting, selecting, dragging, drawing, placing, collecting, or answering.
+- For games, the basic loop is playable even if some secondary systems, upgrades, optional modes, score polish, or extra effects are incomplete.
 - Prompt-named controls such as sliders, toggles, switches, menus, buttons, and camera operations visibly respond after use.
 - The main target can be reached, hit, collected, judged, displayed, or otherwise verified.
 - The result may be rough, but the user can tell that the requested feature was implemented.
@@ -53,6 +59,7 @@ Mark `通过` when the main requested experience is present and usable:
 Mark `不通过` when the core feature is missing or blocked:
 
 - The game cannot start, cannot be controlled, or gets stuck before the first meaningful step.
+- Level/stage selection works, but the selected level opens to an empty screen or no concrete playable game scene.
 - A required key action has no effect.
 - A prompt-named slider, toggle, button, generator, or camera control is present but does not change anything observable.
 - The first essential obstacle or task cannot be completed, preventing the core loop.
@@ -62,6 +69,8 @@ Mark `不通过` when the core feature is missing or blocked:
 Mark `废弃` when the task cannot be judged because the preview itself is unusable:
 
 - The page is blank, broken, or cannot render the main content.
+- The page/render area loads nothing meaningful at all, so there is no generated result to inspect.
+- The page only shows a static default placeholder, such as a Vite icon, without the generated app content.
 - The preview fails to load after a reasonable retry.
 - The render area shows only an error/loading failure and no usable generated result.
 
@@ -78,6 +87,7 @@ Mark `废弃` when the task cannot be judged because the preview itself is unusa
 - UI page or component: pass if the main page, control, form, list, chart, or workflow is usable.
 - Animation or particle effect: pass if the core animation or interaction is visible. Fail if the named central effect is absent, such as no visible burst after a required click burst.
 - Quiz or choice game: pass if questions, choices, feedback, scoring, or progress work. Fail if options cannot be selected or no answer feedback appears.
+- Level or stage selection: pass only if choosing a level enters a concrete playable scene with visible map, character, controls, targets, enemies, or equivalent game content. Fail if selection is available but the entered level is empty, stuck, or lacks the actual game interface.
 
 ## Reason Style
 
