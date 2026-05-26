@@ -13,6 +13,13 @@ This skill is for sketch-to-web GSB tasks, not SFT game pass/fail tasks. Do not 
 
 When operating in a live annotation page, inspect and report unless the user explicitly asks to submit. Do not click final submit, receive, authorize, or other state-changing controls without confirmation.
 
+## Live Annotation Workflow
+
+- Compare the two model outputs directly inside the current annotation webpage. Use the page's own model tabs or toggles, such as `模型一` and `模型二`, to switch between candidates.
+- Do not open candidate output pages in new tabs or new windows just to inspect them. Treat `新窗口打开` links as off-limits unless the user explicitly asks for that.
+- Keep the current task page as the source of truth for prompt, reference image, dimensions, rubrics, existing selections, and candidate previews.
+- When the user says only to do the GSB question or not to submit, fill or report the judgments and reasons only. Do not click `提交`, `继续下一题`, receive, authorize, or other state-changing controls.
+
 ## Review Flow
 
 1. Read the user prompt and identify hard requirements: style, color, element count, copy, default state, interaction, and restrictions.
@@ -78,6 +85,7 @@ Use this order. Earlier items override later ones when the gap is clear.
 - A side that is more beautiful but structurally wrong usually should not beat a side that follows prompt and sketch structure.
 - A side that looks more like the sketch but lacks text, semantics, or webpage completion may lose to a more product-like side with similar structure.
 - Overall impact matters more than counting differences. Main module loss, hard instruction conflict, and broken rendering outweigh small icon, spacing, or border differences.
+- GSB is not a pixel-level spot-the-difference task. Do not force a winner for tiny spacing, color, font, or alignment differences unless they clearly affect the intended layout, content, visual hierarchy, or user experience.
 
 ## Same Rules
 
@@ -87,6 +95,7 @@ Choose `Same` normally when:
 - A and B are equally bad and neither better serves the core goal.
 - One side has slightly better layout while the other has slightly better visual/content quality, and the overall gain is close.
 - Both are far from the prompt/sketch to a similar degree.
+- Differences are visible but not meaningful enough to affect the GSB outcome, such as minor pixel-level spacing, near-identical colors, or small typography variations.
 
 Do not force a winner just because a tiny difference exists.
 
@@ -104,18 +113,31 @@ Interaction failures matter most when interaction is a core requirement. Do not 
 
 Write plain Chinese, one sentence when possible. Use concrete evidence, not empty praise. Prefer 20-45 Chinese characters unless the comparison needs slightly more.
 
+When writing reasons in annotation text boxes, use Chinese commas or normal commas for separation. Do not use colons, semicolons, or Chinese enumeration commas as separators, including after `A 更好`, `B 更好`, or `Same`.
+
+For `Same` judgments, do not call out minor detail differences just to explain why they are minor. Use varied natural wording that means neither side clearly pulls ahead, with brief shared evidence. Do not repeat the exact same phrase for every row.
+
+In annotation text boxes, do not repeat the selected GSB label or winner at the start of the reason. The dropdown already records `Same`, `Bad`, `Good`, `A 更好`, or `B 更好`. Write only the evidence and judgment basis.
+
 Good reason shapes:
 
-- `A 更好：模块顺序和草图更接近，三张卡片也完整保留`
-- `B 更好：整体是正常网页，A 只保留空框且缺少核心文字`
-- `Same：两侧主体布局都偏差较大，没有明显一侧更接近`
-- `A 更好：黑金配色符合要求，B 保留了草图红色批注`
-- `B 更好：表单字段和按钮更完整，A 缺少关键提交区`
-- `A 更好：排序按钮点击后能重排，B 只是静态装饰`
+- `模块顺序和草图更接近，三张卡片也完整保留`
+- `整体是正常网页，A 只保留空框且缺少核心文字`
+- `两侧主体布局都偏差较大，没有明显一侧更接近`
+- `两侧核心模块都完整，视觉效果无明显差距`
+- `两边内容都完整，默认状态下难以拉开差距`
+- `两侧都能满足这一项，没有一边明显更好`
+- `黑金配色符合要求，B 保留了草图红色批注`
+- `表单字段和按钮更完整，A 缺少关键提交区`
+- `排序按钮点击后能重排，B 只是静态装饰`
 
 Avoid:
 
 - `A 更美观`, `B 更接近`, `整体更好` without evidence.
+- Colons, semicolons, and Chinese enumeration commas in reasons, such as `B 更好：...`, `A 偏宽；B 更准`, `标题、正文、按钮`.
+- Same reasons that over-explain tiny differences, such as `差异属于细节差距`, when a natural no-clear-winner wording is enough.
+- Repeating the same Same wording in every row, such as using `无明显差距` mechanically for all dimensions.
+- Repeating the dropdown result in the reason, such as `Same，...`, `B 更好，...`, or `A 更好，...`.
 - Long formal audit language.
 - Overusing the same sentence pattern across nearby tasks.
 - Copying prompt-specific names unnecessarily when a normal phrase is clearer.
