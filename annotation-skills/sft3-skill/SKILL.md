@@ -17,6 +17,10 @@ Be moderately strict about interactions explicitly named in the prompt. If the p
 
 Prompt-named functions have higher weight than the visual shell. A good-looking page or scene does not pass if a required named behavior is missing, such as a date-driven calendar that does not update, crossed paths that do not reveal symbols, a closed circuit that does not light LEDs, or a required levitation base/body that is absent. Prefer judging by the working behavior requested in the prompt before judging general visual similarity.
 
+Do not specially evaluate sound or audio effects during annotation. If a prompt mentions sound, music, audio sync, chimes, alerts, or similar audio effects, do not spend time identifying whether real sound plays, and do not fail a task only because the sound was not verified. Judge by the visible scene, visible controls, textual state, and visual feedback unless audio is the only meaningful requested output.
+
+Judge only from what is visibly shown on the rendered page. Do not use DOM inspection, hidden text, component names, source structure, canvas counts, or internal page metadata as evidence that a feature exists. DOM can be used only to help open the preview or navigate the task page, not to decide pass/fail. If a feature is not visible or not visibly reflected on the page, treat it as not demonstrated.
+
 ## AIDP Task Priority
 
 Do not process returned/rework (`返修`) tasks. If the current item is marked `返修`, skip it and move to a normal annotation task; do not judge, fill, temporarily save, or submit the returned item unless the user explicitly changes this rule.
@@ -29,17 +33,17 @@ If the page can show level/stage selection, but after choosing a level it does n
 
 1. Read the prompt and identify the one or two core requirements.
 2. If the current item is marked `返修`, skip it and handle a normal annotation task instead.
-3. On the task page, open the preview only long enough to read or extract the scene URL. Do not test inside the preview drawer/modal unless there is no other option.
-4. Open the scene URL in a new browser window or new tab and test the page there.
+3. On the task page, open the preview only long enough to view the rendered page or reach the scene. Do not rely on hidden DOM or component inspection to identify implemented features.
+4. Open the scene URL in a new browser window or new tab when practical and test the visible page there.
 5. After testing, close the separate test window/tab, then return to the original task window to fill the label, reason, waste flag, and submit if the user has authorized submission.
 6. First check whether it is basically playable or basically usable according to the production manual.
 7. If the preview is blank, only shows a static default placeholder, or cannot render any meaningful app content, mark `废弃` and write the direct render/load reason.
 8. If a start screen or level-selection screen works, choose one level and confirm that a concrete playable game scene appears. If level entry leads to an empty or non-game screen, mark `不通过`.
-9. Test each prompt-named core control at least once. For sliders and toggles, verify the label, value, scene, animation, or object state changes after operation.
+9. Test each prompt-named core control at least once when it is visible. For sliders and toggles, verify the visible label, value, scene, animation, or object state changes after operation.
 10. If a prompt-named core control has no visible/textual effect, mark `不通过` even if the static scene is mostly correct.
 11. If the core loop is already basically playable and named core controls respond, mark `通过` without exhaustively testing every secondary feature.
 12. If the basic core function is missing, blocked, or cannot be operated, mark `不通过` and write the direct core reason.
-13. Ignore boundary decorations and secondary effects unless the prompt makes them the core feature.
+13. Ignore boundary decorations, secondary effects, and sound effects unless the prompt makes them the only meaningful output.
 14. If comparing with the user's old label, give counts for same/different and mention only meaningful disagreements.
 
 When a task type looks familiar, read [learned-patterns.md](references/learned-patterns.md) and reuse the closest stable pattern. Still inspect the current preview enough to confirm the core condition; do not judge only from the pattern name.
@@ -91,7 +95,13 @@ Mark `废弃` when the task cannot be judged because the preview itself is unusa
 
 ## Reason Style
 
-Write reasons in plain Chinese, usually one sentence around 20-35 Chinese characters. Avoid English terms, framework names, and technical jargon. Mention what was implemented and the visible effect, or the one core thing that failed.
+Write reasons in plain Chinese, usually one sentence around 25-45 Chinese characters. Hard rule: do not include English words, Latin letters, framework names, or technical jargon in the submitted reason. Mention what was implemented and the visible effect, or the one core thing that failed.
+
+When describing objects, controls, charts, or scene elements in reasons, avoid prompt-specific proper nouns and professional labels unless there is no understandable Chinese substitute. Prefer casual Chinese descriptions, such as `圆形聚焦框`, `发光粒子`, `数据柱`, `人物卡片`, `警报面板`, `播放按钮`, or `调节条`. Rewrite named features into everyday wording instead of copying labels from the prompt or page.
+
+Prefer natural spoken wording over compressed formal wording in submitted reasons. Write `可以` instead of bare `可`, and `已经` instead of bare `已` when the sentence means "can" or "already". Also expand other report-like shorthand into conversational Chinese: prefer `没有`, `无法`, `不能`, `需要`, `显示出来`, `点击之后`, `调节之后`, `画面里面有` over clipped forms such as `无`, `未`, `需`, `显示为`, `点击后` when the longer wording reads more natural. Keep the reason like a normal short sentence, not a table conclusion.
+
+When the user asks for reasons to be less terse, add about 5-10 extra Chinese characters of concrete observation instead of using a bare label. Prefer `功能点 + 可见反馈或缺失表现` in one sentence, such as `滑块能调节数值，画面和读数都有变化` rather than only `滑块调节有效`.
 
 When a reason mentions multiple similar implemented or missing items, separate them with Chinese commas, not `/` or slash-like wording. For example, write `温度、密度、颜色调节有反馈` or `广告、列车等核心元素缺失`, not `温度/密度/颜色` or `广告/列车`.
 
@@ -101,7 +111,7 @@ For the user's preferred wording, read [reason-examples.md](references/reason-ex
 
 For repeated task types, also read [learned-patterns.md](references/learned-patterns.md) for the judgment rule and wording direction. Do not copy its reasons as fixed templates. Rewrite the reason based on the current page, changing the sentence shape and concrete details so repeated tasks do not sound identical.
 
-Vary sentence openings in batches. Do not start every pass reason with `能够`; mix ordinary wording such as `实现了`, `可以`, `能正常`, `点击后`, `页面有`, `角色可以`. For game reasons, avoid copying prompt-specific names that sound artificial; prefer generic words like `角色`, `人物`, `车辆`, `敌人`, `目标`, `碎片`, `障碍物`, or `关卡` unless the specific name is needed to explain the issue.
+Vary sentence openings in batches. Do not start every pass reason with `能够`; mix ordinary wording such as `实现了`, `可以`, `能正常`, `点击之后`, `页面里面有`, `角色可以`. Avoid compressed openings like `可...`, `已...`, `未...`, `无...`, or `需...`; use `可以...`, `已经...`, `没有...`, `无法...`, or `需要...` instead. For game reasons, avoid copying prompt-specific names that sound artificial; prefer generic words like `角色`, `人物`, `车辆`, `敌人`, `目标`, `碎片`, `障碍物`, or `关卡` unless the specific name is needed to explain the issue.
 
 Avoid template repetition. If several recent reasons used the same structure, change the next one by varying:
 
