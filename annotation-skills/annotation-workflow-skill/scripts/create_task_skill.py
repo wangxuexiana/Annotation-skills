@@ -73,11 +73,18 @@ Read the relevant reference before working:
 
 ## Stable Rules
 
-- Blank, white-screen, black-screen, broken, or unrenderable previews should be marked as waste/abandoned when the platform supports it.
-- Prompt-named functions have higher weight than visual similarity.
-- Named controls such as sliders, toggles, buttons, drawing tools, generators, counters, and camera controls must visibly or textually change something.
-- Good-looking static output does not pass if the named core behavior is missing.
-- Reasons should be short, direct, and natural Chinese. Use Chinese commas or pause marks, not slashes, for multiple similar items.
+Read the shared generic rules first:
+
+- `../annotation-workflow-skill/references/stable-annotation-rules.md`
+
+Task-specific manuals, `references/rule-updates.md`, and explicit user corrections override shared generic rules when they clearly conflict.
+
+Minimal fallback if the shared file is unavailable:
+
+- Broken or unrenderable previews are waste/abandoned when supported.
+- Prompt-named core functions outweigh visual polish.
+- Named controls must produce visible or textual changes.
+- Reasons should be short, direct, and natural Chinese.
 
 ## Reason Style
 

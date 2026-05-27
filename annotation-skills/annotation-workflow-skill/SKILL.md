@@ -81,6 +81,8 @@ The generated skill must include:
 - `references/reason-examples.md`: short natural Chinese reason examples.
 - `references/user-style.md`: the user's historical answer style and wording habits, when available.
 
+Generated task skills should reference the shared generic rules in `references/stable-annotation-rules.md` and include only a short fallback summary. Do not duplicate the full shared rules into every generated skill unless the user explicitly wants a standalone snapshot.
+
 After generation, validate with the skill-creator quick validator.
 
 ## Live Rule Updates
@@ -125,7 +127,9 @@ Default confirmation policy: ask before final quiz submission, permission submis
 
 ## Stable Annotation Rules
 
-Carry these rules into generated task skills unless the manual explicitly conflicts:
+Maintain the canonical shared rules in [stable-annotation-rules.md](references/stable-annotation-rules.md). Generated task skills should reference that file and keep only a compact fallback summary. Task-specific manuals, rule updates, and explicit user corrections override shared rules when they clearly conflict.
+
+Core shared rules include:
 
 - Returned/rework tasks are not processed unless the user explicitly asks.
 - Blank, white-screen, black-screen, broken, or unrenderable previews are marked as waste/abandoned rather than normal fail.
