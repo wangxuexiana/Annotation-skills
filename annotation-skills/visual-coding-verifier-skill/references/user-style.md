@@ -13,6 +13,13 @@ Use this file as the first source for reason wording when the user provides hist
 
 ## Historical Answers
 
+## Current Preference
+
+- Rubrics scoring reasons should not be too terse or all on one line.
+- Keep short reasons on one line. Only split longer reasons when readability would suffer, and use at most two lines with no repeated blank lines.
+- Add concrete visible observations, but keep wording direct and natural.
+- If a score is below full marks, the reason must clearly say what is deficient, not only what is good.
+
 ```text
 （等待用户提供历史标注回答）
 ```
