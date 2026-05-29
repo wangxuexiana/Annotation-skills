@@ -36,7 +36,22 @@ Read the relevant reference before working:
 8. Test prompt-named core functions and visible natural controls.
 9. Close the test tab/window after testing.
 10. Return to the original task page and fill the judgement and reason.
-11. Pause before final submission unless this queue has explicit user approval for auto-submit.
+11. Before saving or submission, run the mandatory validation checklist below.
+12. Pause before final submission unless this queue has explicit user approval for auto-submit.
+
+## Mandatory Validation Checklist
+
+Run this checklist before every temporary save or final submission. Do not rely only on required-field emptiness or submit-button state.
+
+- If a page has more than 15 rubrics, first inspect same-module, same-function, or same-category rubric text for natural merging. Merge only genuinely similar items; do not force the final count below 15.
+- For overall dynamic score, use the official boundary strictly: 0 means the page overall does not meet the requirements, 1 means the page overall meets all requirements, and 2 is the best page among multiple pages that truly qualify for 1. Do not score partial or merely relatively better implementations as 1 or 2.
+- The note under overall dynamic score is only for the overall dynamic score. Explain dynamic interactions, animations, response feedback, and overall dynamic completion there; do not use it to justify static visual restoration or layout fidelity.
+- For unrelated heading, lead-in, or non-annotation rubric text, score 0, mark non-core when the core field is visible, and use exactly `描述内容与标注无关`.
+- For every scored rubric, verify score and reason semantics match: score 1 must have positive implementation evidence, and score 0 must have missing, unclear, or not-implemented evidence.
+- Reject and fix any `1` score paired with negative wording such as not obvious, missing, not restored, or insufficient.
+- Reject and fix any `0` score paired with positive wording such as implemented, visible, complete, clear, or usable, except the fixed unrelated-rubric reason above.
+- Write Chinese reasons without a final period. Use commas for separation and avoid extra separators such as enumeration commas, semicolons, slashes, or trailing punctuation.
+- Ignore whether the submit button is greyed out when checking completion; inspect the actual annotation fields instead.
 
 ## Stable Rules
 
