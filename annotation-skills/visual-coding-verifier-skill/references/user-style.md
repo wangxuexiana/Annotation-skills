@@ -15,10 +15,15 @@ Use this file as the first source for reason wording when the user provides hist
 
 ## Current Preference
 
-- Rubrics scoring reasons should not be too terse or all on one line.
-- Keep short reasons on one line. Only split longer reasons when readability would suffer, and use at most two lines with no repeated blank lines.
+- Rubrics scoring reasons can include a little more evidence, especially when a dimension has multiple judging points.
+- Keep short reasons on one line. Split longer reasons for readability, and use at most three lines with no repeated blank lines.
 - Add concrete visible observations, but keep wording direct and natural.
 - If a score is below full marks, the reason must clearly say what is deficient, not only what is good.
+- For O2 data/readability issues in any chart or visual, directly name the affected values, labels, or visible defects when that is clearer; do not unnecessarily bind every value or defect to its corresponding object/category unless needed to avoid ambiguity.
+- Chinese-only reason wording may be natural and complete; do not over-compress it just for brevity.
+- When a reason contains numbers, coordinate/range values, time spans, or English labels/object names, keep that part simple and precise. Avoid long lists of numeric ranges, repeated English category names, or object-by-object binding unless needed to avoid ambiguity.
+- For O2, apply the concise style mainly to numeric, coordinate/range, time-span, or English-heavy details; Chinese defect descriptions may still be natural and complete.
+- When several English category names are only being used to describe the same shared defect, prefer a Chinese group phrase such as "各类别" or "五类气候区" instead of listing every English name.
 
 ```text
 （等待用户提供历史标注回答）
