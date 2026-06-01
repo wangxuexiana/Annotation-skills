@@ -20,9 +20,25 @@ When operating in a live annotation page, inspect and report unless the user exp
 - Keep the current task page as the source of truth for prompt, reference image, dimensions, rubrics, existing selections, and candidate previews.
 - When the user says only to do the GSB question or not to submit, fill or report the judgments and reasons only. Do not click `提交`, `继续下一题`, receive, authorize, or other state-changing controls.
 
+## Pre-Judgement Checklist
+
+Before judging each item, complete this checklist:
+
+1. Read `references/rule-updates.md` first when it exists. Newer rule updates override older summaries.
+2. Read `references/learned-patterns.md` when the case looks familiar or the user has corrected similar cases.
+3. Read the user prompt and extract hard requirements: style, color, element count, copy, default state, interaction, and restrictions.
+4. Inspect all reference sketches and decide what each image represents.
+5. Identify whether this is a normal task, returned/rework task, permission quiz, inaccessible page, or broken preview.
+6. Check rendering validity before comparing aesthetics or details.
+7. Compare each visible dimension against the prompt, sketch, and row rubric, not personal taste.
+8. Apply rule priority: current user instruction > user correction > rule updates > page rubric > prompt and sketch > shared stable rules > general judgement.
+9. If a rule conflict affects the current item, pause and mention the conflict.
+10. Write each reason with concrete visible evidence and keep the wording concise.
+11. Do not final-submit unless the current queue has explicit user approval for auto-submit.
+
 ## Review Flow
 
-1. Read the user prompt and identify hard requirements: style, color, element count, copy, default state, interaction, and restrictions.
+1. Complete the Pre-Judgement Checklist before deciding any dimension or overall label.
 2. Inspect all reference sketches. If there are multiple images, decide whether they represent states, viewports, pages, or detail supplements.
 3. Read every dimension shown on the annotation page, including `整体` and each rubric row such as `rendering`, `O1`, `O2`, `O3`, `S1`, `O2S1`, or any custom dimension.
 4. Compare A and B for each visible dimension separately and write a reason for each one. Do not only give the overall result.

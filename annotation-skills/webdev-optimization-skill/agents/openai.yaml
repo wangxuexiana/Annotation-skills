@@ -1,0 +1,7 @@
+interface:
+  display_name: "WebDev Optimization"
+  short_description: "AIDP WebDev annotation scoring rules"
+  default_prompt: "Use $webdev-optimization-skill to judge this AIDP WebDev optimization annotation item."
+
+policy:
+  allow_implicit_invocation: true

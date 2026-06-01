@@ -146,5 +146,6 @@ Use this file as the evolving memory for repeated SFT 三期 task types. Add onl
 - For specialized labels like EVA, use more口语 wording when possible: `宇航员出舱装备切换有效`, `宇航员穿戴状态能切换`, or `月球基地里装备切换有反馈`.
 
 - Blank or no-content render: if the page or render area loads nothing visible at all, choose 废弃, reason like 页面没有加载出内容，无法判断核心功能. If it can show a menu or level list but entering a level has no concrete game screen, choose 不通过, reason like 能选择关卡，但进入后看不到具体游戏界面，核心玩法不可用.
+- Static loading render: if the preview stays on a static loading screen and never renders the requested app, game, chart, scene, or controls after a reasonable wait/retry, choose 废弃, not 不通过. Use a waste reason like 页面一直显示加载中，核心内容没有渲染出来.
 - Waste boundary: use 废弃 only for true blank/no meaningful elements/default placeholder such as a static Vite icon. If a partial app shell, sidebar, navigation, or controls load but the requested core scene or interaction is missing, choose 不通过, reason like 页面只加载出部分界面，核心内容不可用.
 - Game core-loop leniency: for game tasks, pass when the game can start and the main playable action works, even if some secondary features, upgrades, optional modes, scoring polish, or decorative effects are incomplete. Fail only when the missing part blocks the playable loop or is the central named interaction in the prompt.

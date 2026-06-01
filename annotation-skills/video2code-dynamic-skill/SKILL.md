@@ -24,9 +24,26 @@ Read the relevant reference before working:
 - `references/reason-examples.md` for short natural Chinese wording.
 - `references/user-style.md` when the user has provided previous annotation answers; imitate those sentence patterns first.
 
+## Pre-Judgement Checklist
+
+Before judging each item, complete this checklist:
+
+1. Read `references/rule-updates.md` first. Newer rule updates override older summaries.
+2. Read `references/learned-patterns.md` for reusable user corrections.
+3. Watch the task video enough to understand the visible key states and dynamic effects.
+4. Read the current task prompt and extract the core requirement.
+5. Identify whether this is a normal task, returned/rework task, permission quiz, or inaccessible page.
+6. Check waste/abandon conditions before normal scoring.
+7. Check whether rubric rows need merging or special handling before scoring.
+8. Test prompt-named core functions before judging visual polish.
+9. Apply rule priority: current user instruction > user correction > rule updates > official manual > training summary > shared stable rules > general judgement.
+10. If a rule conflict affects the current item, pause and mention the conflict.
+11. Write the reason using `references/user-style.md` and `references/reason-examples.md`, keeping it short and natural.
+12. Do not final-submit unless the current queue has explicit user approval for auto-submit.
+
 ## Review Flow
 
-1. Identify whether the current item is a normal annotation task, a returned/rework task, a permission quiz, or an inaccessible page.
+1. Complete the Pre-Judgement Checklist before deciding the label.
 2. Do not process returned/rework tasks unless the user explicitly asks.
 3. Watch the task video before scoring. Use speed controls or scrubbing if helpful, but cover the visible key states and dynamic effects shown in the video.
 4. Read the task prompt and extract the core requirement before testing.

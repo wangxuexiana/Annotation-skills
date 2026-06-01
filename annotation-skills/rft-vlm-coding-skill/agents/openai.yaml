@@ -1,0 +1,3 @@
+display_name: Rft Vlm Coding Skill
+short_description: Task-specific annotation queue rubric.
+default_prompt: Use this skill to annotate this queue in Chrome using its training summary, manual rules, learned patterns, and reason examples.

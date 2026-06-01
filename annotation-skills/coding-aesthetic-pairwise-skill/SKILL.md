@@ -23,15 +23,31 @@ Read the relevant reference before working:
 - `references/reason-examples.md` for short natural Chinese wording.
 - `references/user-style.md` when the user has provided previous annotation answers; imitate those sentence patterns first.
 
+## Pre-Judgement Checklist
+
+Before judging each item, complete this checklist:
+
+1. Read `references/rule-updates.md` first. Newer rule updates override older summaries.
+2. Read `references/learned-patterns.md` for reusable user corrections.
+3. Read the current task prompt and extract the visual requirement.
+4. Identify whether this is a normal task, returned/rework task, permission quiz, or inaccessible page.
+5. Check waste/abandon conditions before normal pairwise judgement.
+6. Judge screenshot-visible aesthetics and prompt fit before opening any URL.
+7. For pairwise tasks, compare against the prompt, screenshots, and task rubric, not personal taste.
+8. Apply rule priority: current user instruction > user correction > rule updates > official manual > training summary > shared stable rules > general judgement.
+9. If a rule conflict affects the current item, pause and mention the conflict.
+10. Write the reason using `references/user-style.md` and `references/reason-examples.md`, keeping it short and natural.
+11. Do not final-submit unless the current queue has explicit user approval for auto-submit.
+
 ## Review Flow
 
-1. Identify whether the current item is a normal annotation task, a returned/rework task, a permission quiz, or an inaccessible page.
+1. Complete the Pre-Judgement Checklist before deciding the label.
 2. Do not process returned/rework tasks unless the user explicitly asks.
 3. Read the task prompt and extract the visual requirement before judging screenshots.
 4. Judge the screenshots first. Only open the URL when needed to verify whether a screenshot is incomplete or unreasonable.
 5. Compare screenshot-visible layout, color, material quality, information hierarchy, consistency, and visual comfort.
 6. Return to the original task page and fill the judgement and reason.
-8. Pause before final submission unless this queue has explicit user approval for auto-submit.
+7. Pause before final submission unless this queue has explicit user approval for auto-submit.
 
 ## Stable Rules
 

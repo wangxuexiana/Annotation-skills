@@ -16,6 +16,7 @@ Use this file as the first source for reason wording when the user provides hist
 ## Current Preference
 
 - Rubrics scoring reasons can include a little more evidence, especially when a dimension has multiple judging points.
+- O1 reasons should be only one concise line, stating whether the chart type and core intent are correct.
 - Keep short reasons on one line. Split longer reasons for readability, and use at most three lines with no repeated blank lines.
 - Add concrete visible observations, but keep wording direct and natural.
 - If a score is below full marks, the reason must clearly say what is deficient, not only what is good.

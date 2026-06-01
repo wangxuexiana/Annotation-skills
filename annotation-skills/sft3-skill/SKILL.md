@@ -19,32 +19,55 @@ Prompt-named functions have higher weight than the visual shell. A good-looking 
 
 Do not specially evaluate sound or audio effects during annotation. If a prompt mentions sound, music, audio sync, chimes, alerts, or similar audio effects, do not spend time identifying whether real sound plays, and do not fail a task only because the sound was not verified. Judge by the visible scene, visible controls, textual state, and visual feedback unless audio is the only meaningful requested output.
 
-Judge only from what is visibly shown on the rendered page. Do not use DOM inspection, hidden text, component names, source structure, canvas counts, or internal page metadata as evidence that a feature exists. DOM can be used only to help open the preview or navigate the task page, not to decide pass/fail. If a feature is not visible or not visibly reflected on the page, treat it as not demonstrated.
+Judge only from what is visibly shown on the rendered page. Do not use DOM inspection, hidden text, component names, source structure, canvas counts, or internal page metadata as evidence that a feature exists. If a feature is not visible or not visibly reflected on the page, treat it as not demonstrated.
+
+Evaluate the webpage exactly as the user sees it: use screenshots, visible rendering, and actual visible interaction feedback as the evidence. Do not mark `通过` because underlying text, canvas elements, DOM nodes, source code, or page metadata suggest the feature exists. If the visible preview is white/blank, only shows a static loading screen, only shows source code, only shows an icon/default thumbnail, or only shows non-core text while the requested visual effect, game, canvas scene, or main content is not visibly rendered, choose `废弃`; write a direct reason such as `页面白屏，无法正常显示核心效果`, `页面一直显示加载中，核心内容没有渲染出来`, or `页面只显示代码，核心效果没有渲染出来`.
+
+Operate the annotation page like a human reviewer for judging: use visible screenshots, rendered page state, and visible interaction feedback to decide labels. Do not use DOM snapshots, source inspection, component names, hidden accessibility trees, page scripts, or direct internal state as proof that the task works.
 
 ## AIDP Task Priority
 
 Do not process returned/rework (`返修`) tasks. If the current item is marked `返修`, skip it and move to a normal annotation task; do not judge, fill, temporarily save, or submit the returned item unless the user explicitly changes this rule.
 
-If a preview is blank, broken, or cannot render the main content after a reasonable load/retry, choose `废弃` instead of marking ordinary `不通过`. Use `废弃` only when no meaningful elements load, the page is truly blank, or the page only shows a static default placeholder such as a Vite icon. Use a short waste reason such as `页面白屏，无法正常渲染` or `预览无法加载，无法判断核心功能`.
-If the page or render area loads nothing meaningful at all, with no visible game/UI/canvas/content to inspect, choose `废弃` directly. If any partial app shell, navigation, control panel, or other meaningful UI loads but the core scene is missing or unusable, mark ordinary `不通过`, not `废弃`.
+If a preview is blank, broken, stuck on a static loading screen, or cannot render the main content after a reasonable load/retry, choose `废弃` instead of marking ordinary `不通过`. Use `废弃` only when no meaningful elements load, the page is truly blank, the page only shows a static loading message, or the page only shows a static default placeholder such as a Vite icon. Use a short waste reason such as `页面白屏，无法正常渲染`, `页面一直显示加载中，核心内容没有渲染出来`, or `预览无法加载，无法判断核心功能`.
+If the page or render area loads nothing meaningful at all, with no visible game/UI/canvas/content to inspect, choose `废弃` directly. A page that only has title/instruction text, source code, a static loading screen, an icon/default thumbnail, or import instructions but the requested visual scene, particles, game, chart, or canvas effect is not visibly rendered also counts as `废弃`; do not use hidden DOM text, code text, canvas existence, or metadata to rescue it. If any partial app shell, navigation, control panel, or other meaningful UI loads but the core scene is missing or unusable, mark ordinary `不通过`, not `废弃`.
+For tasks that should be `废弃`, do not select `通过` or `不通过`, and do not fill the ordinary reason field. Only select `是否废弃：是` and fill the `废弃备注`/waste reason field.
 If the page can show level/stage selection, but after choosing a level it does not enter a concrete game screen, map, character, controls, or playable scene, mark ordinary `不通过`, not `废弃`. The page is renderable, but the core gameplay after level entry is missing.
+
+## Pre-Judgement Checklist
+
+Before judging each item, complete this checklist:
+
+1. Read `references/rule-updates.md` first when it exists. Newer rule updates override older summaries.
+2. Read `references/learned-patterns.md` when the task type looks familiar or the user has corrected similar cases.
+3. Read the prompt and identify the one or two core requirements.
+4. Identify whether this is a normal task, returned/rework task, permission quiz, inaccessible page, or broken preview.
+5. Skip returned/rework tasks unless the user explicitly asks to handle them.
+6. Check waste/abandon conditions before ordinary pass/fail judgement.
+7. Judge only visible rendering and visible interaction feedback, not hidden DOM, source code, or metadata.
+8. Test prompt-named core controls at least once when visible.
+9. Apply rule priority: current user instruction > user correction > rule updates > production manual > learned patterns > shared stable rules > general judgement.
+10. If a rule conflict affects the current item, pause and mention the conflict.
+11. Write the reason using `references/reason-examples.md` and the user's preferred wording, keeping it short and natural.
+12. Do not final-submit unless the current queue has explicit user approval for auto-submit.
 
 ## Review Flow
 
-1. Read the prompt and identify the one or two core requirements.
+1. Complete the Pre-Judgement Checklist before deciding the label.
 2. If the current item is marked `返修`, skip it and handle a normal annotation task instead.
-3. On the task page, open the preview only long enough to view the rendered page or reach the scene. Do not rely on hidden DOM or component inspection to identify implemented features.
+3. On the task page, open the preview and view the rendered page as a user would. Do not rely on hidden DOM, element locators, page scripts, source code, or component inspection to identify implemented features.
 4. Open the scene URL in a new browser window or new tab when practical and test the visible page there.
 5. After testing, close the separate test window/tab, then return to the original task window to fill the label, reason, waste flag, and submit if the user has authorized submission.
 6. First check whether it is basically playable or basically usable according to the production manual.
-7. If the preview is blank, only shows a static default placeholder, or cannot render any meaningful app content, mark `废弃` and write the direct render/load reason.
-8. If a start screen or level-selection screen works, choose one level and confirm that a concrete playable game scene appears. If level entry leads to an empty or non-game screen, mark `不通过`.
-9. Test each prompt-named core control at least once when it is visible. For sliders and toggles, verify the visible label, value, scene, animation, or object state changes after operation.
-10. If a prompt-named core control has no visible/textual effect, mark `不通过` even if the static scene is mostly correct.
-11. If the core loop is already basically playable and named core controls respond, mark `通过` without exhaustively testing every secondary feature.
-12. If the basic core function is missing, blocked, or cannot be operated, mark `不通过` and write the direct core reason.
-13. Ignore boundary decorations, secondary effects, and sound effects unless the prompt makes them the only meaningful output.
-14. If comparing with the user's old label, give counts for same/different and mention only meaningful disagreements.
+7. If the preview is blank, only shows a static loading screen, only shows source code, only shows an icon/default thumbnail, only shows a static default placeholder, or cannot render any meaningful app content, mark only `是否废弃：是` and write the direct render/load reason in the waste reason field; leave `通过`/`不通过` and the ordinary reason field untouched.
+8. Before clicking final submit, visually confirm the filled form state: for ordinary `通过`/`不通过`, the chosen label is selected and the ordinary reason field visibly contains the intended reason; for `废弃`, `是否废弃：是` is selected and the waste reason field visibly contains the intended waste reason. If the reason text is not visibly present, do not submit yet.
+9. If a start screen or level-selection screen works, choose one level and confirm that a concrete playable game scene appears. If level entry leads to an empty or non-game screen, mark `不通过`.
+10. Test each prompt-named core control at least once when it is visible. For sliders and toggles, verify the visible label, value, scene, animation, or object state changes after operation.
+11. If a prompt-named core control has no visible/textual effect, mark `不通过` even if the static scene is mostly correct.
+12. If the core loop is already basically playable and named core controls respond, mark `通过` without exhaustively testing every secondary feature.
+13. If the basic core function is missing, blocked, or cannot be operated, mark `不通过` and write the direct core reason.
+14. Ignore boundary decorations, secondary effects, and sound effects unless the prompt makes them the only meaningful output.
+15. If comparing with the user's old label, give counts for same/different and mention only meaningful disagreements.
 
 When a task type looks familiar, read [learned-patterns.md](references/learned-patterns.md) and reuse the closest stable pattern. Still inspect the current preview enough to confirm the core condition; do not judge only from the pattern name.
 
@@ -74,7 +97,9 @@ Mark `废弃` when the task cannot be judged because the preview itself is unusa
 
 - The page is blank, broken, or cannot render the main content.
 - The page/render area loads nothing meaningful at all, so there is no generated result to inspect.
+- The page stays on a static loading screen and the requested content never appears after a reasonable wait/retry.
 - The page only shows a static default placeholder, such as a Vite icon, without the generated app content.
+- The page only shows source code, an icon/default thumbnail, or import/instruction text, while the requested visual effect, game, canvas scene, or main content is not actually rendered.
 - The preview fails to load after a reasonable retry.
 - The render area shows only an error/loading failure and no usable generated result.
 
