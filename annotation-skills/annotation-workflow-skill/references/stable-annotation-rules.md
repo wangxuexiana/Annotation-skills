@@ -20,11 +20,16 @@ Task-specific manuals, `references/rule-updates.md`, and explicit user correctio
 
 ## Judgement Priorities
 
+- Apply the complete applicable rubric for every item. Do not focus only on the newest correction, and do not ignore older official rules that still apply.
+- Treat user corrections as guardrails inside the full rubric unless the user explicitly says the correction replaces an older rule.
 - Prompt-named core functions outweigh visual polish or a good-looking static shell.
 - Official manual rules and newest live updates outweigh older summaries or generic habits.
 - Test the prompt-named core functions and natural visible controls before judging.
 - Named controls such as sliders, toggles, buttons, generators, drawing tools, counters, camera controls, and similar controls must visibly or textually change something.
 - Good-looking static output does not pass if the named core behavior is missing.
+- For pairwise tasks, compare higher-priority dimensions first. Layout, position, size, spacing, first-screen content, module order, core content, and element completeness usually outrank color mood, decorative polish, and small visual details unless the task-specific manual says otherwise.
+- Do not flatten to Same only because both sides have different advantages. If a higher-priority dimension clearly favors one side, choose that side unless a task-specific rule says otherwise.
+- Broken images in key visible content such as hero, card, product, avatar, doctor, chart, gallery, or required comparison images are significant element-completeness or visual-restoration defects.
 
 ## Evidence Source
 

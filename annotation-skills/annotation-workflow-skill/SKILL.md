@@ -73,6 +73,10 @@ python annotation-skills/annotation-workflow-skill/scripts/create_task_skill.py 
 The generated skill must include:
 
 - `SKILL.md`: compact operating instructions, safety gates, and review flow.
+- `references/priority-rules.md`: rule priority, conflict handling, and file role boundaries.
+- `references/decision-checklist.md`: per-item checklist used to build a 3-8 point current-task checklist before judging.
+- `references/pre-submit-audit.md`: final audit before filling labels, reasons, waste flags, quizzes, or submitting.
+- `references/common-failure-patterns.md`: concrete examples for recurring traps and easy-to-miss cases.
 - `references/training-summary.md`: distilled video/manual notes.
 - `references/manual-summary.md`: manual-specific rules.
 - `references/quiz-draft.md`: permission quiz answers and evidence, if present.
@@ -81,7 +85,27 @@ The generated skill must include:
 - `references/reason-examples.md`: short natural Chinese reason examples.
 - `references/user-style.md`: the user's historical answer style and wording habits, when available.
 
+Generated task skills must also include these reusable guardrails by default:
+
+- Build every item checklist from the full applicable rule set, not only the newest correction or the most recently discussed rule.
+- Treat user corrections as guardrails inside the full rubric, not replacements for official manual rules, priority rules, or older still-valid rules.
+- For pairwise tasks, compare higher-priority dimensions first. Do not flatten to Same because of lower-priority color, image mood, or small visual details when layout, position, size, spacing, first-screen content, module order, core content, or element completeness clearly differs.
+- Check broken images in key visible content. Broken hero, card, product, avatar, doctor, chart, gallery, or required comparison images are significant element-completeness or visual-restoration defects; whole unrenderable pages are waste/abandoned when supported.
+- Treat reason punctuation and tone preferences in `user-style.md` as hard checks. Default comparison reasons should be colloquial, compact, and use Chinese commas for clause breaks without other punctuation unless the queue explicitly requires another format.
+
+Generated task skills must also include a `state/` directory for recoverable runtime state:
+
+- `state/current-item.md`: current item type, prompt summary, applicable rules, current-item checklist, draft judgement, draft reason, and audit notes.
+- `state/batch-log.md`: compact per-item results and submission status for context recovery.
+- `state/corrections.md`: reusable user corrections waiting to be merged into references.
+- `state/pending-uncertainties.md`: blockers or uncertainties that require user or platform action.
+- `state/browser-observation.json`: structured browser observations using `task_id`, `prompt`, `page_load_state`, `tested_controls`, `visible_evidence`, `failures`, `screenshots`, `uncertain_points`, and `recommended_pause`.
+
+Do not keep long DOM dumps, long accessibility snapshots, repeated screenshot descriptions, or unrelated browser history in chat. Compress browser work into the state files and restore from those files after context compaction.
+
 Generated task skills should reference the shared generic rules in `references/stable-annotation-rules.md` and include only a short fallback summary. Do not duplicate the full shared rules into every generated skill unless the user explicitly wants a standalone snapshot.
+
+Generated task skills should be execution-oriented. Keep `SKILL.md` short and make it point to checklist files. Avoid turning `SKILL.md`, `training-summary.md`, or `manual-summary.md` into long undifferentiated rule dumps. The annotation loop should force the agent to extract a small current-item checklist from the prompt before testing and judging.
 
 After generation, validate with the skill-creator quick validator.
 
@@ -102,6 +126,10 @@ python annotation-skills/annotation-workflow-skill/scripts/update_task_skill.py 
 
 Targets:
 
+- `audit`: append to `references/pre-submit-audit.md`; use for final review gates.
+- `checklist`: append to `references/decision-checklist.md`; use for per-item judgement steps.
+- `failure`: append to `references/common-failure-patterns.md`; use for recurring traps and examples.
+- `priority`: append to `references/priority-rules.md`; use for rule precedence or conflict policy.
 - `rule`: append to `references/rule-updates.md`; use for new rules that may override earlier summaries.
 - `pattern`: append to `references/learned-patterns.md`; use for recurring judgement patterns.
 - `style`: append to `references/user-style.md`; use for historical answers or user wording preferences.
@@ -111,17 +139,34 @@ Targets:
 
 After updating, revalidate the skill. Before annotating, load `rule-updates.md` first because it contains the newest overrides.
 
+To merge reusable corrections collected during annotation, use:
+
+```powershell
+python annotation-skills/annotation-workflow-skill/scripts/update_task_skill.py `
+  --skill-dir annotation-skills/<task-name>-skill `
+  --from-correction-log
+```
+
+Correction log entries with `Type: rule` merge into `learned-patterns.md`, `Type: override` merges into `rule-updates.md`, and `Type: style` merges into `user-style.md`. Entries marked `Type: one-off` stay in `state/batch-log.md` and should not be merged into long-term rules.
+
 ## Annotation Execution
 
 When queue permission is open and the user asks Codex to annotate:
 
 1. Load the task-specific skill, not only this workflow skill.
-2. Read the task prompt first.
-3. Open the scene or candidate link in a separate new Chrome tab/window for testing.
-4. Test only the prompt-named core functions and natural visible controls needed for judgement.
-5. Close the test tab/window after testing.
-6. Return to the original task page and fill the label, reason, and waste flag.
-7. Respect the current confirmation policy before final submit.
+2. Read `priority-rules.md`, newest `rule-updates.md`, and the task prompt first.
+3. Update `state/current-item.md` with the current item type, prompt summary, and applicable rule sources.
+4. Use `decision-checklist.md` to build a 3-8 point checklist for the current item, including all applicable rules rather than only the newest correction.
+5. Open the scene or candidate link in a separate new Chrome tab/window only when needed for testing.
+6. Test only the prompt-named core functions and natural visible controls needed for judgement.
+7. Compress browser observations into `state/browser-observation.json`.
+8. Compare observations against the current-item checklist one point at a time, applying dimension priority before lower-priority visual taste.
+9. Check key visible images for broken loading before deciding.
+10. Run `pre-submit-audit.md` before filling the label, reason, and waste flag.
+11. Append the result and submission status to `state/batch-log.md`.
+12. Close the test tab/window after testing.
+13. Return to the original task page and fill the label, reason, and waste flag.
+14. Respect the current confirmation policy before final submit.
 
 Default confirmation policy: ask before final quiz submission, permission submission, and annotation submission. If the user explicitly authorizes auto-submit for a queue, apply it only to that queue and keep pausing for login, CAPTCHA, permission, or unclear destructive actions.
 
@@ -135,7 +180,10 @@ Core shared rules include:
 - Blank, white-screen, black-screen, broken, or unrenderable previews are marked as waste/abandoned rather than normal fail.
 - Prompt-named core functions outweigh the visual shell.
 - Sliders, toggles, buttons, generators, drawing tools, counters, camera controls, and similar named controls must visibly or textually change something.
-- Reasons should be short, natural Chinese, with commas instead of slashes for multiple similar items.
+- Apply the complete applicable rubric on every item. Do not focus only on the newest correction, and do not ignore older official rules that still apply.
+- In pairwise tasks, layout, position, size, spacing, first-screen content, module order, core content, and element completeness usually outrank color mood, decorative polish, and small visual details unless the task-specific manual says otherwise.
+- Broken images in key visible content are significant defects; broadly unrenderable pages are waste/abandoned when supported.
+- Reasons should be short, natural Chinese, colloquial, and use Chinese commas instead of other punctuation for multiple clauses unless the queue explicitly requires another format.
 - Use more colloquial wording for specialized labels when the user prefers it.
 
 ## Updating The System
