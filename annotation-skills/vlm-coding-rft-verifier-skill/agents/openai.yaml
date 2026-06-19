@@ -1,0 +1,3 @@
+display_name: VLM Coding RFT Verifier
+short_description: VisualCoding chart-reproduction annotation rules for O1/O2/O3 rubrics and pairwise judgement.
+default_prompt: Use this skill to annotate the VisualCoding Verifier / VLM Coding RFT chart-reproduction queue in Chrome. Compare GT with image1/image2, repair O1/O2/O3 rubrics before scoring, fill rubric and dimension scores, check overall, and choose the pairwise winner from visible chart evidence.

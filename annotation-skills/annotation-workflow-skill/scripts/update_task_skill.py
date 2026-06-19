@@ -136,7 +136,7 @@ def append_correction_log(skill_dir: Path, correction_log: Path) -> int:
             skipped.append(f"{title}: empty Text block")
             continue
         if correction_type == "one-off":
-            skipped.append(f"{title}: one-off corrections stay in state/batch-log.md")
+            skipped.append(f"{title}: one-off corrections are not merged into long-term references")
             continue
         target = CORRECTION_TARGETS.get(correction_type)
         if not target:

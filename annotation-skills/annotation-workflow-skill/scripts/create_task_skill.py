@@ -75,7 +75,7 @@ Do not rely on memory from the full skill. For every annotation item, follow thi
 5. Check hard gates and waste/abandon conditions before normal pass/fail or pairwise judgement.
 6. Test the prompt-named core functions and visible natural controls.
 7. Compare observations against the current-item checklist one point at a time.
-8. Write the draft label, reason, and audit notes back to `state/current-item.md`, then append the outcome to `state/batch-log.md`.
+8. Write the draft label, reason, and audit notes back to `state/current-item.md` while the item is active. After successful annotation, do not append completed answers, results, or submission status to a local log unless the user explicitly asks for logging.
 9. Draft the reason under the active constraints in `references/user-style.md`, then run `references/pre-submit-audit.md` before filling the final label or reason.
 10. Pause if a rule conflict, hidden permission gate, login challenge, CAPTCHA, destructive action, or unresolved uncertainty appears.
 
@@ -88,7 +88,7 @@ Keep the live chat context small and recoverable:
 - Store reusable user corrections in `state/corrections.md` before merging them into references with `update_task_skill.py --from-correction-log`.
 - Store unresolved blockers in `state/pending-uncertainties.md`.
 - Use screenshots only as evidence pointers; summarize what matters instead of retaining large visual descriptions.
-- After context compaction or a new session, restore from `state/current-item.md`, `state/batch-log.md`, `state/pending-uncertainties.md`, `references/priority-rules.md`, and `references/rule-updates.md`.
+- After context compaction or a new session, restore from `state/current-item.md`, `state/pending-uncertainties.md`, `references/priority-rules.md`, and `references/rule-updates.md`.
 
 ## Review Flow
 
@@ -332,7 +332,7 @@ Run this audit before filling the final label, reason, waste flag, or quiz answe
 
 - [ ] No login, CAPTCHA, permission, account, payment, or irreversible-action prompt is blocking the page.
 - [ ] No unresolved item in `state/pending-uncertainties.md` affects this label, reason, waste flag, quiz answer, or final submit.
-- [ ] `state/batch-log.md` has enough information to recover this item after context compaction.
+- [ ] No completed-answer/result/submission-status log will be written locally unless the user explicitly asked for logging.
 - [ ] The user has approved final submission, or this exact queue has explicit auto-submit approval.
 
 If any box is uncertain, pause and resolve it before submitting.
@@ -525,30 +525,7 @@ Reference each checklist item and state the visible evidence.
 
 - Audit completed: no
 - Blocking uncertainty:
-- Submission status: not-filled | filled-not-submitted | submitted-with-approval
-"""
-
-
-def default_batch_log() -> str:
-    return """# Batch Log
-
-Append one compact entry per item so the batch can recover after context compaction.
-
-## Entries
-
-<!--
-### YYYY-MM-DD HH:MM - <task_id>
-
-- Item type:
-- Prompt summary:
-- Checklist summary:
-- Browser observation file: state/browser-observation.json
-- Label:
-- Waste/abandon flag:
-- Reason:
-- Submitted: no | yes-with-user-approval | yes-auto-submit-approved
-- Notes:
--->
+- Completion handling: clear-or-overwrite-for-next-item; do-not-log-completed-answer
 """
 
 
@@ -574,7 +551,7 @@ Use one entry per correction. Set `Type` to one of:
 - `failure`: recurring trap, merged into `references/common-failure-patterns.md`
 - `manual`: official manual clarification, merged into `references/manual-summary.md`
 - `priority`: priority or conflict handling change, merged into `references/priority-rules.md`
-- `one-off`: item-specific correction only, keep it in `state/batch-log.md` and do not merge
+- `one-off`: item-specific correction only; do not merge into long-term references and do not create a completed-answer log unless the user explicitly asks for logging
 
 ## Pending Corrections
 
@@ -656,7 +633,6 @@ def main() -> None:
     write(skill_dir / "references" / "pre-submit-audit.md", default_pre_submit_audit())
     write(skill_dir / "references" / "common-failure-patterns.md", default_common_failure_patterns())
     write(skill_dir / "state" / "current-item.md", default_current_item_state())
-    write(skill_dir / "state" / "batch-log.md", default_batch_log())
     write(skill_dir / "state" / "corrections.md", default_corrections_log())
     write(skill_dir / "state" / "pending-uncertainties.md", default_pending_uncertainties())
     write(skill_dir / "state" / "browser-observation.json", default_browser_observation())

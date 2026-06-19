@@ -96,12 +96,11 @@ Generated task skills must also include these reusable guardrails by default:
 Generated task skills must also include a `state/` directory for recoverable runtime state:
 
 - `state/current-item.md`: current item type, prompt summary, applicable rules, current-item checklist, draft judgement, draft reason, and audit notes.
-- `state/batch-log.md`: compact per-item results and submission status for context recovery.
 - `state/corrections.md`: reusable user corrections waiting to be merged into references.
 - `state/pending-uncertainties.md`: blockers or uncertainties that require user or platform action.
 - `state/browser-observation.json`: structured browser observations using `task_id`, `prompt`, `page_load_state`, `tested_controls`, `visible_evidence`, `failures`, `screenshots`, `uncertain_points`, and `recommended_pause`.
 
-Do not keep long DOM dumps, long accessibility snapshots, repeated screenshot descriptions, or unrelated browser history in chat. Compress browser work into the state files and restore from those files after context compaction.
+Do not keep long DOM dumps, long accessibility snapshots, repeated screenshot descriptions, unrelated browser history, or completed answer logs in chat or local state. Compress active browser work into the state files and restore from those files after context compaction. After a successful annotation submission, do not append the answer or submission status to a local log unless the user explicitly asks for logging.
 
 Generated task skills should reference the shared generic rules in `references/stable-annotation-rules.md` and include only a short fallback summary. Do not duplicate the full shared rules into every generated skill unless the user explicitly wants a standalone snapshot.
 
@@ -147,7 +146,7 @@ python annotation-skills/annotation-workflow-skill/scripts/update_task_skill.py 
   --from-correction-log
 ```
 
-Correction log entries with `Type: rule` merge into `learned-patterns.md`, `Type: override` merges into `rule-updates.md`, and `Type: style` merges into `user-style.md`. Entries marked `Type: one-off` stay in `state/batch-log.md` and should not be merged into long-term rules.
+Correction log entries with `Type: rule` merge into `learned-patterns.md`, `Type: override` merges into `rule-updates.md`, and `Type: style` merges into `user-style.md`. Entries marked `Type: one-off` should not be merged into long-term rules and should not create a completed-answer log unless the user explicitly asks for logging.
 
 ## Annotation Execution
 
@@ -163,7 +162,7 @@ When queue permission is open and the user asks Codex to annotate:
 8. Compare observations against the current-item checklist one point at a time, applying dimension priority before lower-priority visual taste.
 9. Check key visible images for broken loading before deciding.
 10. Run `pre-submit-audit.md` before filling the label, reason, and waste flag.
-11. Append the result and submission status to `state/batch-log.md`.
+11. Do not append completed answers, results, or submission status to a local log after successful annotation unless the user explicitly asks for logging; clear or overwrite `state/current-item.md` for the next item.
 12. Close the test tab/window after testing.
 13. Return to the original task page and fill the label, reason, and waste flag.
 14. Respect the current confirmation policy before final submit.
