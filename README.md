@@ -5,7 +5,8 @@
 当前主要包含：
 
 - `annotation-workflow-skill`：总控型半自动化工作流 skill，用来学习在线培训资料、整理标注规则、草拟权限问卷、生成任务专用 skill，并提供后续规则更新接口。
-- `sft3-skill`、`gsb-skill`、`coding-aesthetic-pairwise-skill`、`video2code-dynamic-skill`、`visual-coding-verifier-skill`：已经沉淀好的具体标注 skill，用于实际判断和填写标注任务。
+- 已沉淀的具体标注 skill：`sft3-skill`、`gsb-skill`、`coding-aesthetic-pairwise-skill`、`video2code-dynamic-skill`、`visual-coding-verifier-skill` 等，用于实际判断和填写标注任务。
+- 新增同步的队列 skill：`coding-aesthetic-pairwise-singleimage-skill`、`flowchart-web-function-eval-skill`、`new-video2code-dynamic-skill`、`replica-flow-gsb-skill`、`rl-trace-skill`、`visual-debug-gsb-rubrics-skill`、`vlm-visualdebug-gsb-skill`、`webdev-arena-gsb-skill`、`webdev-gsb-skill` 等。
 
 
 ## 半自动化工作流
@@ -54,9 +55,21 @@ annotation-skills/
       user-style.md
       reason-examples.md
   gsb-skill/
+  coding-aesthetic-pairwise-singleimage-skill/
+  flowchart-web-function-eval-skill/
+  new-video2code-dynamic-skill/
+  replica-flow-gsb-skill/
+  rft-vlm-coding-skill/
+  rl-trace-skill/
   sft3-skill/
   video2code-dynamic-skill/
   visual-coding-verifier-skill/
+  visual-debug-gsb-rubrics-skill/
+  vlm-coding-rft-verifier-skill/
+  vlm-visualdebug-gsb-skill/
+  webdev-arena-gsb-skill/
+  webdev-gsb-skill/
+  webdev-optimization-skill/
 ```
 
 ## 生成任务专用 Skill

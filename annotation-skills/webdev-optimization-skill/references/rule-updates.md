@@ -12,6 +12,14 @@ Newer entries override older summaries and shared annotation rules when they con
 - UI item reasons should consider page angle and atmosphere angle in the overall evaluation or aesthetic field when useful: overall presentation, visual texture, interaction flow, theme fit, and whether the intended mood or emotion comes through. This does not change the base scoring logic.
 - Animation-scene reasons under the 0515 rule should not apply the UI page-angle or atmosphere-angle expansion. Point out existing problems only and avoid broad expectation writing.
 
+## 2026-06-02 Strict +1 Override
+
+- `1 优质` must be assigned cautiously. It is not enough for only the prompt's core workflow to work.
+- Before assigning `1 优质`, test all visible functions and all visible buttons or controls in their intended states, including secondary controls such as reset, restart, replay, difficulty, tabs, toggles, filters, uploads, sliders, mode switches, and naturally clickable game/UI controls.
+- The UI must also have no obvious problem in layout, spacing, alignment, readability, overlap, clipping, visual hierarchy, or polish.
+- If any visible control is broken, untested, confusing, has no reasonable feedback, or if the UI has a noticeable issue, prefer `0 合格` unless the issue is truly irrelevant. Write the concrete issue and expected behavior.
+- Disabled controls are acceptable only when the disabled state is contextually reasonable, such as difficulty selection being disabled during an active game. If a disabled state blocks expected use, record it as a functional defect.
+
 ## Active Overrides
 
 ### +1 Does Not Require Extra Highlights

@@ -1,0 +1,4 @@
+display_name: Visual Debug GSB+Rubrics
+short_description: Repair comparison rubric with rubrics, A/B scores, GSB preference, and evidence reasons.
+default_prompt: Use this skill to annotate Visual Debug GSB+Rubrics tasks in Chrome, checking the current reported problem first, then original-request/reference match, side effects, rubric scores, A/B scores, preference, and reason.
+

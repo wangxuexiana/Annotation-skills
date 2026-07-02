@@ -24,6 +24,11 @@ Add reusable user corrections here.
   Fail/waste condition: The judgement focused only on the latest user correction or one visible detail while ignoring higher-priority applicable rules.
   Reason style: Keep the reason grounded in the main deciding evidence.
 
+- Pattern: Strict point scoring from enlarged images
+  Pass/choose condition: GT, image1, and image2 are inspected as separate/enlarged images, and each rubric score is based on direct comparison of the corresponding element or region.
+  Fail/waste condition: A score of `1` is given because the image is generally similar, despite visible coordinate, label, layout, color, text, or style differences in that rubric.
+  Reason style: Use `完全一致/准确` only for true matches; use `基本保留/有偏差/不完全一致` for `0.5`; use `缺失/错误/严重偏离` for `0`.
+
 - Pattern: User wording constraints
   Pass/choose condition: The submitted reason follows active punctuation and tone constraints in `user-style.md`.
   Fail/waste condition: The reason uses formal audit language, extra punctuation, or a copied template that conflicts with the user's requested style.

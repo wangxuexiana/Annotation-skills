@@ -34,6 +34,7 @@ Before judging, write a `current-item-checklist` with 3-8 concrete checks for th
 - [ ] It is not blank, white-screen, black-screen, broken, or unrenderable.
 - [ ] GT chart, image1, and image2 are all visible enough to compare.
 - [ ] Enlarged view has been used if small ticks, legends, labels, or data points are unreadable in thumbnail view.
+- [ ] GT, image1, and image2 have been inspected as separate/enlarged images before any `1` score or pairwise choice.
 - [ ] The platform currently exposes no ordinary waste/abandon option; if a chart is unreadable, pause or follow visible platform-specific fallback rather than inventing a hidden waste label.
 - [ ] The page can be judged from visible behavior, not hidden DOM evidence.
 
@@ -46,6 +47,7 @@ If a hard gate fails and the platform exposes a waste/abandon option, follow tha
 - [ ] O3 checked independently for layout and visual style.
 - [ ] Machine rubrics are not trusted until verified against GT.
 - [ ] Pointwise rubric scores are assigned independently for image1 and image2.
+- [ ] Pointwise rubric scores use strict thresholds: `1` only for complete GT match, `0.5` for basic match with visible differences, `0` for severe mismatch or missing/wrong element.
 - [ ] Dimension scores are chosen from the correct scales: O1 `0/2/4`, O2/O3 `0/1/2/3/4`.
 - [ ] O1=0 overall rule was applied if needed, but later fields were still completed.
 
