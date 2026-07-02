@@ -11,6 +11,11 @@ Add reusable user corrections here.
 
 ## Patterns From Doubt Table
 
+- Pattern: Strict `1 优质` gate
+  Pass condition: All visible functions and all visible buttons or controls are tested and work in their intended states, and the UI has no obvious layout, readability, overlap, clipping, hierarchy, or polish issue.
+  Lower condition: If only the core prompt workflow works but secondary buttons, controls, modes, or UI polish are untested or questionable, prefer `0` rather than `1`.
+  Reason style: For `1`, name the visible controls that were tested. For `0`, name the untested or problematic control and the expected behavior.
+
 - Pattern: Prompt-explicit colors or style details
   Pass condition: Required colors, theme, material, visual effect, or style details named by the prompt are visibly implemented.
   Lower condition: If a prompt explicitly requires specific colors or visual construction and the page does not follow them, lower the relevant score even if the page is otherwise usable.

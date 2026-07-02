@@ -34,6 +34,7 @@ Before judging each item, follow this checklist:
 - Open the generated page in a separate tab for judgment. When feasible, check the generated page console for every item, not only white-screen or suspicious items. Record useful errors or warnings in the functional-defect field, but use the actual product experience and prompt fit to decide pass or fail.
 - The V0/baseline view may be used internally as a tie-breaker, especially when a UI item is hard to classify between `0` and `+1`. Submitted reasons must describe only the current product and must not mention versions, comparisons, baselines, initial versions, old versions, or V0.
 - Every score level and every required dimension needs concrete wording. When a defect, aesthetic issue, or optimization point is named, describe the current state plus the expected behavior or improvement. If no functional defect is found, say that clearly.
+- Use a strict `+1` standard. Before assigning `1 优质`, verify that all visible functions and all visible buttons or controls work in their intended states, not only the prompt's core workflow. Also confirm the UI has no obvious layout, readability, overlap, or visual-polish problem. If any visible control is untested, broken, confusing, or the UI has a noticeable issue, prefer `0` unless the issue is clearly irrelevant and explain it.
 - For UI items, overall and aesthetic reasons should consider page angle and atmosphere angle when useful: overall presentation, texture, interaction smoothness, theme fit, and whether the intended mood or emotion comes through. This adds descriptive guidance without changing the scoring logic.
 - For animation-scene items under the 0515 rule, do not apply the UI page-angle or atmosphere-angle expansion. Point out existing problems only, and avoid broad expectation writing.
 - For games, judge explicit prompt requirements first, then consider whether the overall play loop meets common expectations for the game type, such as reasonable control speed, playable difficulty, and coherent failure or scoring feedback.
@@ -62,6 +63,7 @@ Conflict priority:
 ### Overall Score
 
 - `+1`: three dimensions pass, interaction works, UI is good enough. No extra highlight is required.
+- Strict `+1` check: all visible functions and buttons/controls have been tested and pass in their intended states, and UI aesthetics have no obvious problem. Be cautious when using `+1`; when uncertain, choose `0` and write the concrete optimization point.
 - `0`: basically satisfies the prompt but has minor or moderate defects, weak polish, simple implementation, or optimization points.
 - `-1`: severe issue such as prompt core requirement missing, core function unusable, game basically unplayable, serious UI/layout failure, rendering failure, process blockage, or very poor experience.
 - If QA says an item is "too abstract" or "not good enough for 优质", usually revise from `+1` to `0` when core functions still work, then write the concrete visual/function gap and the expected improvement.

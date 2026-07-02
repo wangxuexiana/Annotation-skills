@@ -1,0 +1,3 @@
+display_name: WebDev GSB Skill
+short_description: WebDev 场景GSB和评测GSB comparison rubric.
+default_prompt: Use this skill to compare WebDev GSB candidates in Chrome using scene-type priority, functional completeness, functional defects, aesthetics, no-waste-tag handling, and concise Chinese strict remarks.

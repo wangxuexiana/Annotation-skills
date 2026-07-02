@@ -1,0 +1,3 @@
+display_name: Coding Aesthetic Pairwise SingleImage
+short_description: Screenshot-only pairwise aesthetic rubric for Coding美观度.
+default_prompt: Use this skill to review Coding美观度 SingleImage pairwise items from screenshots only, applying waste rules, page-purpose inference, four aesthetic dimensions, and human-confirmed -1/0/1 labels.
