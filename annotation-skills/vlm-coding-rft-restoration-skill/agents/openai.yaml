@@ -1,0 +1,6 @@
+interface:
+  display_name: "VLM Coding RFT 还原度"
+  short_description: "网页还原度标注队列规则"
+  default_prompt: "Use $vlm-coding-rft-restoration-skill to annotate the VLM Coding RFT 还原度 queue in Chrome."
+policy:
+  allow_implicit_invocation: true
