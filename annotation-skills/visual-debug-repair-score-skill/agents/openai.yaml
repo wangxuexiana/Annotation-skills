@@ -1,0 +1,3 @@
+display_name: Visual Debug Repair Score Skill
+short_description: Score Visual Debug repaired webpages with 0/1/2 and abandon rules.
+default_prompt: Use this skill to label Visual Debug new-process repair-scoring tasks in Chrome. Check the described visual bug, repaired webpage output, reference image fidelity, abandon conditions, and the single-best 2-point rule.
